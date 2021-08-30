@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <title>Ứng dụng quản lý sản phẩm</title>
+    <style type="text/css">
+        button {
+            background-color: #16B908;
+            border: none;
+            color: white;
+            padding: 10px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 10px;
+            margin: 6px;
+            border-radius: 15px;
+        }
+
+        table {
+            background-color: white;
+            width: 50%;
+            margin: auto;
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            border-top: 1px solid #dee2e6;
+            text-align: left;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+
+        input {
+            border-radius: 15px;
+            border: none;
+            background-color: #E0E6DF;
+            font-size: 20px;
+        }
+
+        body {
+            background-image: url(https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+        }
+    </style>
+</head>
+<body>
+<table>
+    <colgroup>
+        <col span="1" width="80">
+        <col span="1" width="150">
+        <col span="2" width="80">
+    </colgroup>
+    <tr>
+        <th colspan="4" style="font-size: 25px; color: blue; text-align: center;">Ứng dụng quản lý sản phẩm</th>
+    </tr>
+    <tr>
+        <td colspan="4"><input id="addProduct" placeholder="Nhập tên sản phẩm mới" type="text">
+            <button onclick="themSanPham()">Thêm sản phẩm</button>
+        </td>
+    </tr>
+    <tr>
+        <th style="width: 30px;">Số thứ tự</th>
+        <th style="width: 100px;">Tên sản phẩm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        <td colspan="2" style="text-align: right; color: red;">Tổng có&nbsp;<span id="hienThi1"></span>&nbsp;sản phẩm
+        </td>
+    </tr>
+</table>
+<span id="themHienThi"></span>
+</body>
+</html>
+<script type="text/javascript">
+    let mangSanPham = [];
+
+    function hienThiSanPham(arr) {
+        let id = "0";
+        let data = "<table><colgroup><col width='90' span='1'><col width='150' span='1'><col width= '80' span='2'></colgroup>";
+        for (let i = 0; i < arr.length; i++) {
+            data += "<tr><td>" + (i + 1) + "</td>";
+            data += "<td id = " + id + ">" + mangSanPham[i] + "</td>";
+            data += "<td><button onclick='suaSanPham(document.getElementById(" + id + "))'>edit</button></td>";
+            data += "<td><button onclick='xoaSanPham(document.getElementById(" + id + "))'>delete</button></td></tr>";
+            id++;
+        }
+        data += "</table>";
+        return data;
+    }
+
+    function themSanPham() {
+        let sanPham = document.getElementById('addProduct').value;
+        let e = document.getElementById('themHienThi');
+        let check = true;
+        let data = 0;
+        for (let i = 0; i < mangSanPham.length; i++) {
+            if (mangSanPham[i] == sanPham) {
+                check = false;
+            }
+        }
+        if (check) {
+            mangSanPham.push(sanPham);
+            data = hienThiSanPham(mangSanPham);
+            e.innerHTML = data;
+            alert("Bạn vừa thêm vào sản phẩm " + sanPham);
+            document.getElementById('hienThi1').innerHTML = mangSanPham.length;
+        } else alert("Sản phẩm đã có trong danh mục");
+    }
+
+    function suaSanPham(e) {
+        let getVal = e.innerHTML;
+        let changValue = prompt("Nhập vào sản phẩm muốn thay đổi");
+        let check = true;
+        for (let i = 0; i < mangSanPham.length; i++) {
+            if (mangSanPham[i] == changValue) {
+                check = false;
+            }
+        }
+        if (check) {
+            for (let i = 0; i < mangSanPham.length; i++) {
+                if (mangSanPham[i] == getVal) {
+                    mangSanPham[i] = changValue;
+                    e.innerHTML = changValue;
+                    break;
+                }
+            }
+        } else alert("Sản phẩm đã có trong danh mục");
+    }
+
+    function xoaSanPham(e) {
+        let getVal = e.innerHTML;
+        for (i = 0; i < mangSanPham.length; i++) {
+            if (mangSanPham[i] == getVal) {
+                for (let j = i; j < mangSanPham.length; j++) {
+                    mangSanPham[j] = mangSanPham[j + 1]
+                }
+            }
+        }
+        mangSanPham.length--;
+        let data = hienThiSanPham(mangSanPham);
+        document.getElementById('themHienThi').innerHTML = data;
+        document.getElementById('hienThi1').innerHTML = mangSanPham.length;
+    }
+</script>
