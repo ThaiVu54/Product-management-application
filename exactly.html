@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    table tr td {
+        border: blue 1px solid;
+    }
+</style>
+<body>
+<h1>Danh sach sp</h1>
+<input id="newP" placeholder="NewProduct">
+<button onclick="createNewProduct()">Create</button>
+<p id="sumOfProduct"></p>
+<table>
+    <tr>
+        <td>Ten san pham</td>
+        <td>Sua</td>
+        <td>Xoa</td>
+    </tr>
+    <tbody id="products">
+        <tr>
+            <td>Macbook 2020</td>
+            <td>Sua</td>
+            <td>Xoa</td>
+        </tr>
+        <tr>
+            <td>Dell 3570</td>
+            <td>Sua</td>
+            <td><button onclick="deleteProduct()">xoa</button></td>
+        </tr>
+    </tbody>
+
+
+</table>
+
+<script src="js.js"></script>
+</body>
+</html>
